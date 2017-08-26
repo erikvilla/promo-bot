@@ -6,7 +6,7 @@ import commands from './commands';
 /* helpers */
 import { sendIntervalMessages } from './helpers/messageHelper';
 // TODO move this to a DB
-const chatids = JSON.parse(config.get('CHAT_IDS'));
+const chatids = process.env.CHAT_IDS || JSON.parse(config.get('CHAT_IDS'));
 
 const app = new Telegraf(config.get('token'));
 
