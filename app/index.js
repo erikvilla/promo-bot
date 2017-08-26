@@ -8,17 +8,16 @@ import { sendIntervalMessages } from './helpers/messageHelper';
 // TODO move this to a DB
 const chatids = process.env.CHAT_IDS || JSON.parse(config.get('CHAT_IDS'));
 
-const app = new Telegraf(config.get('token'));
-
-/* add commands from command array */
-commands.forEach(command => app.command(command.key, ctx => command.func(ctx)));
-
-
 /** telegram app **/
 const token = process.env.token || config.get('token');
 const URL = process.env.URL || config.get('URL');
 const PORT = process.env.PORT || config.get('PORT');
 const isDevelopment = process.env.NODE_ENV === 'development';
+
+const app = new Telegraf(token);
+
+/* add commands from command array */
+commands.forEach(command => app.command(command.key, ctx => command.func(ctx)));
 
 // start telegram listeners
 if (isDevelopment) {
