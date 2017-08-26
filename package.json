@@ -1,0 +1,42 @@
+{
+  "name": "promo-bot",
+  "version": "1.0.0",
+  "description": "Telegram feed for promodescuentos rss",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "lint": "eslint ./ || true",
+    "start": "node dist/index.js",
+    "start:dev": "NODE_ENV=development nodemon app/index.js --exec babel-node",
+    "start:prod": "NODE_ENV=production nodemon app/index.js --exec babel-node",
+    "build": "babel app -d dist --presets env",
+    "pre-commit": "eslint ./app || true"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/erikvilla/promo-bot.git"
+  },
+  "author": "bokvilla",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/erikvilla/promo-bot/issues"
+  },
+  "homepage": "https://github.com/erikvilla/promo-bot#readme",
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-preset-env": "^1.6.0",
+    "eslint": "^3.15.0",
+    "eslint-config-airbnb": "^14.1.0",
+    "eslint-plugin-import": "^2.2.0",
+    "eslint-plugin-jsx-a11y": "^4.0.0",
+    "eslint-plugin-react": "^6.9.0"
+  },
+  "dependencies": {
+    "config": "^1.26.2",
+    "feed-read": "0.0.1",
+    "lodash": "^4.17.4",
+    "mongodb-stitch": "0.0.25",
+    "node-feedparser": "^1.0.1",
+    "telegraf": "^3.6.6"
+  }
+}
