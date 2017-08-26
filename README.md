@@ -5,7 +5,11 @@ Telegram feed for promodescuentos rss
 
 ### Configure environments
 This project uses [config](https://docs.npmjs.com/cli/config) to load environment variables, under `config` folder create at least `default.json` following the structure in `default.example.json`
-In order to get responses from a telegram bot you will need to get the dev token from any owner of this project or create your own using BotFather in telegram directly
+In order to get responses from a telegram bot you will need to get the dev token from any owner of this project or create your own using BotFather in telegram directly.
+
+Current telegram instances are:
+Production: @promodescuentos_bokbot
+Development: @promobot_dev_bot
 
 ### Run the bot locally
 `npm run start:dev`
