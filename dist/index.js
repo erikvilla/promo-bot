@@ -24,10 +24,16 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 /* commands */
 var chatids = process.env.CHAT_IDS || JSON.parse(_config2.default.get('CHAT_IDS'));
+
+/** telegram app **/
+
 /* helpers */
+var token = process.env.token || _config2.default.get('token');
+var URL = process.env.URL || _config2.default.get('URL');
+var PORT = process.env.PORT || _config2.default.get('PORT');
+var isDevelopment = process.env.NODE_ENV === 'development';
 
-
-var app = new _telegraf2.default(_config2.default.get('token'));
+var app = new _telegraf2.default(token);
 
 /* add commands from command array */
 _commands2.default.forEach(function (command) {
@@ -35,12 +41,6 @@ _commands2.default.forEach(function (command) {
     return command.func(ctx);
   });
 });
-
-/** telegram app **/
-var token = process.env.token || _config2.default.get('token');
-var URL = process.env.URL || _config2.default.get('URL');
-var PORT = process.env.PORT || _config2.default.get('PORT');
-var isDevelopment = process.env.NODE_ENV === 'development';
 
 // start telegram listeners
 if (isDevelopment) {
