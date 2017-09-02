@@ -6,7 +6,7 @@ import commands from './commands';
 /* helpers */
 import { sendIntervalMessages } from './helpers/messageHelper';
 // TODO move this to a DB
-const chatids = process.env.CHAT_IDS || JSON.parse(config.get('CHAT_IDS'));
+const chatids = JSON.parse(process.env.CHAT_IDS) || JSON.parse(config.get('CHAT_IDS'));
 
 /** telegram app **/
 const token = process.env.token || config.get('token');

@@ -23,7 +23,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 // TODO move this to a DB
 
 /* commands */
-var chatids = process.env.CHAT_IDS || JSON.parse(_config2.default.get('CHAT_IDS'));
+var chatids = JSON.parse(process.env.CHAT_IDS) || JSON.parse(_config2.default.get('CHAT_IDS'));
 
 /** telegram app **/
 
