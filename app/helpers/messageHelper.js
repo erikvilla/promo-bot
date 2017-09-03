@@ -1,9 +1,10 @@
-import { blacklistArray } from '../commands/blacklist';
+import { getBlacklist } from '../dataAccess';
 
 const composeMessage = article => (`${article.title} | ${article.link}`);
 const includes = (base, search) => (base.toUpperCase().includes(search.toUpperCase()));
 
-const isBlacklisted = (article) => {
+const isBlacklisted = (article, chatId) => {
+  const blacklistArray = getBlacklist(chatId);
   for (let i = 0; i < blacklistArray.length; i += 1) {
     const containsBlacklistWord = includes(article.title, blacklistArray[i]);
     const blacklistWordInContent = includes(article.content, blacklistArray[i]);
@@ -20,7 +21,7 @@ const sendIntervalMessages = (telegramInstance, id, articles, interval = 1000) =
   const messageInterval = setInterval(() => {
     if (count <= articles.length - 1) {
       const article = articles[count];
-      if (!isBlacklisted(article)) {
+      if (!isBlacklisted(article, id)) {
         telegramInstance.sendMessage(id, composeMessage(articles[count]));
       }
       count += 1;

@@ -1,12 +1,12 @@
-const chatids = [14501059, 10457276, 6660592, 47077012, 172031101, 103395076];
+import { saveChatConfig } from '../dataAccess';
+
+const locale = require('../locale/es');
 
 const command = {
   key: 'start',
   func: (ctx) => {
-    // TODO: save id onMessage
-    console.log('new id:', ctx.from.id);
-    chatids.push(ctx.from.id);
-    ctx.reply('Welcome!');
+    saveChatConfig(ctx.from.id);
+    ctx.reply(locale.start.confirmation);
   },
 };
 

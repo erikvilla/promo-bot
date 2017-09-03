@@ -1,0 +1,9 @@
+{
+  "blacklist": {
+    "no_term": "Por favor proporciona un nuevo termino, tu lista actual es:",
+    "confirmation": "Tu lista actual es:"
+  },
+  "start": {
+    "confirmation": "Hola, gracias por registrarte, comenzaras a recibir ofertas de promodescuentos a partir del siguiente minuto"
+  }
+}
