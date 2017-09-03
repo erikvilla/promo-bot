@@ -1,14 +1,4 @@
-import config from 'config';
-import fs from 'fs';
-import Storage from '@google-cloud/datastore';
-
-let datastore;
-const datastoreKey = process.env.DATASTORE_KEY || config.get('DATASTORE_KEY');
-
-fs.writeFile('credentials.json', JSON.stringify(datastoreKey), 'utf8', () => {
-  datastore = Storage({ keyFileName: '../credentials.json' });
-  loadApplicationData();
-});
+import datastore from './datastore';
 
 const chatMap = {};
 
@@ -45,6 +35,7 @@ const update = (collection, data, id) => {
 };
 
 const updateBlacklist = (chatId, blacklist) => {
+  if(!chatMap[chatId]) return;
   update('chat',
     { blacklist,
       telegram_id: chatId,

@@ -7,6 +7,9 @@ import commands from './commands';
 /* helpers */
 import { sendIntervalMessages } from './helpers/messageHelper';
 
+/* initial load from database */
+loadApplicationData();
+
 /** telegram app **/
 const token = process.env.token || config.get('token');
 const URL = process.env.URL || config.get('URL');
