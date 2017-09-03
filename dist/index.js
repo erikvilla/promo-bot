@@ -22,15 +22,12 @@ var _messageHelper = require('./helpers/messageHelper');
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-/* initial load from database */
-
-/* commands */
-(0, _dataAccess.loadApplicationData)();
-
 /** telegram app **/
 
-/* helpers */
+/* commands */
 var token = process.env.token || _config2.default.get('token');
+/* helpers */
+
 var URL = process.env.URL || _config2.default.get('URL');
 var PORT = process.env.PORT || _config2.default.get('PORT');
 var isDevelopment = process.env.NODE_ENV === 'development';
