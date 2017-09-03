@@ -3,15 +3,16 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-var chatids = [14501059, 10457276, 6660592, 47077012, 172031101, 103395076];
+
+var _dataAccess = require('../dataAccess');
+
+var locale = require('../locale/es');
 
 var command = {
   key: 'start',
   func: function func(ctx) {
-    // TODO: save id onMessage
-    console.log('new id:', ctx.from.id);
-    chatids.push(ctx.from.id);
-    ctx.reply('Welcome!');
+    (0, _dataAccess.saveChatConfig)(ctx.from.id);
+    ctx.reply(locale.start.confirmation);
   }
 };
 

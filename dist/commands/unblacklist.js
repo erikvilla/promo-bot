@@ -12,19 +12,21 @@ var blacklistString = function blacklistString(blacklistArray) {
   return blacklistArray.join(', ');
 };
 var command = {
-  key: 'bloquear',
+  key: 'desbloquear',
   func: function func(ctx) {
     var chatId = ctx.from.id;
     var blacklistArray = (0, _dataAccess.getBlacklist)(chatId);
     var text = ctx.message.text;
     var wordArray = text.split(' ');
     wordArray.shift(); // remove the command
-    var blackListText = wordArray.join(' ').trim();
-    var termExists = blacklistArray.indexOf(blackListText) !== -1;
-    if (blackListText.length < 2 || termExists) {
+    var unblacklistText = wordArray.join(' ').trim();
+    var termExists = blacklistArray.indexOf(unblacklistText) !== -1;
+    if (unblacklistText.length < 2 || termExists) {
       ctx.reply(locale.blacklist.no_term + ' ' + blacklistString(blacklistArray));
     } else {
-      blacklistArray.push(blackListText);
+      blacklistArray = blacklistArray.filter(function (item) {
+        return item !== unblacklistText;
+      });
       (0, _dataAccess.updateBlacklist)(chatId, blacklistArray);
       ctx.reply(locale.blacklist.confirmation + ' ' + blacklistString(blacklistArray));
     }

@@ -8,6 +8,8 @@ var _config = require('config');
 
 var _config2 = _interopRequireDefault(_config);
 
+var _dataAccess = require('./dataAccess');
+
 var _feed = require('./feed');
 
 var _feed2 = _interopRequireDefault(_feed);
@@ -20,10 +22,10 @@ var _messageHelper = require('./helpers/messageHelper');
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-// TODO move this to a DB
+/* initial load from database */
 
 /* commands */
-var chatids = JSON.parse(process.env.CHAT_IDS) || JSON.parse(_config2.default.get('CHAT_IDS'));
+(0, _dataAccess.loadApplicationData)();
 
 /** telegram app **/
 
@@ -45,18 +47,17 @@ _commands2.default.forEach(function (command) {
 // start telegram listeners
 if (isDevelopment) {
   // remove webhook in case any is attached from previous sessions
-  app.telegram.setWebhook();
-
+  app.telegram.deleteWebhook();
   app.startPolling();
 } else {
   app.telegram.setWebhook(URL + '/bot' + token);
   app.startWebhook('/bot' + token, null, PORT);
 }
-
 // start reading rss articles
 _feed2.default.read(function (articles) {
+  var chatIds = (0, _dataAccess.getChatIds)();
   if (!articles) return;
-  chatids.forEach(function (id) {
+  chatIds.forEach(function (id) {
     return (0, _messageHelper.sendIntervalMessages)(app.telegram, id, articles);
   });
 });

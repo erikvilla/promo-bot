@@ -38,7 +38,6 @@ var feedReader = {
           return newArticleLinks.indexOf(article.link) !== -1;
         });
 
-        console.log('new article links:', newArticleLinks);
         onUpdate(newArticles);
       });
     }, UPDATE_TIME);
