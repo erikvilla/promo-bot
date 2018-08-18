@@ -44,9 +44,6 @@ var sendIntervalMessages = function sendIntervalMessages(telegramInstance, id, a
   var messageInterval = setInterval(function () {
     if (count <= articles.length - 1) {
       var article = articles[count];
-      if (!isBlacklisted(article)) {
-        telegramInstance.sendMessage(id, composeMessage(articles[count]));
-      }
       var store = getStoreChannel(article);
       if (store) {
         _storeChannels.storeInstances.forEach(function (storeInstance) {
@@ -54,6 +51,8 @@ var sendIntervalMessages = function sendIntervalMessages(telegramInstance, id, a
             storeInstance.instance.telegram.sendMessage(id, composeMessage(articles[count]));
           }
         });
+      } else if (!isBlacklisted(article)) {
+        telegramInstance.sendMessage(id, composeMessage(articles[count]));
       }
       count += 1;
     } else {
