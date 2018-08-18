@@ -33,7 +33,8 @@ if (isDevelopment) {
   app.startWebhook(`/bot${token}`, null, PORT);
   storeInstances.forEach((storeInstance) => {
     storeInstance.instance.telegram.setWebhook(`${URL}/bot${storeInstance.token}`);
-    storeInstance.instance.startWebhook(`/bot${storeInstance.token}`, null, PORT);
+    // TODO: send to config
+    storeInstance.instance.startWebhook(`/bot${storeInstance.token}`, null, 5001);
   });
 }
 
