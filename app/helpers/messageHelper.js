@@ -30,9 +30,6 @@ const sendIntervalMessages = (telegramInstance, id, articles, interval = 1000) =
   const messageInterval = setInterval(() => {
     if (count <= articles.length - 1) {
       const article = articles[count];
-      if (!isBlacklisted(article)) {
-        telegramInstance.sendMessage(id, composeMessage(articles[count]));
-      }
       const store = getStoreChannel(article);
       if (store) {
         storeInstances.forEach((storeInstance) => {
@@ -40,6 +37,8 @@ const sendIntervalMessages = (telegramInstance, id, articles, interval = 1000) =
             storeInstance.instance.telegram.sendMessage(id, composeMessage(articles[count]));
           }
         });
+      } else if (!isBlacklisted(article)) {
+        telegramInstance.sendMessage(id, composeMessage(articles[count]));
       }
       count += 1;
     } else {
