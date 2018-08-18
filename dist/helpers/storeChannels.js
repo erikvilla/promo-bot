@@ -27,7 +27,8 @@ var storeConfig = storeArray.map(function (store) {
 var storeInstances = storeConfig.map(function (storeObject) {
   return {
     store: storeObject.store,
-    instance: new _telegraf2.default(storeObject.token)
+    instance: new _telegraf2.default(storeObject.token),
+    token: storeObject.token
   };
 });
 

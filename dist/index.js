@@ -55,6 +55,10 @@ if (isDevelopment) {
 } else {
   app.telegram.setWebhook(URL + '/bot' + token);
   app.startWebhook('/bot' + token, null, PORT);
+  _storeChannels.storeInstances.forEach(function (storeInstance) {
+    storeInstance.instance.telegram.setWebhook(URL + '/bot' + storeInstance.token);
+    storeInstance.instance.startWebhook('/bot' + storeInstance.token, null, PORT);
+  });
 }
 
 // start reading rss articles
