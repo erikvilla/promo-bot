@@ -5,7 +5,7 @@ import feedReader from './feed';
 import commands from './commands';
 /* helpers */
 import { sendIntervalMessages } from './helpers/messageHelper';
-import { startPolling } from './helpers/storeChannels';
+import { startPolling, storeInstances } from './helpers/storeChannels';
 // TODO move this to a DB
 const chatids = JSON.parse(process.env.CHAT_IDS) || JSON.parse(config.get('CHAT_IDS'));
 
@@ -31,6 +31,10 @@ if (isDevelopment) {
 } else {
   app.telegram.setWebhook(`${URL}/bot${token}`);
   app.startWebhook(`/bot${token}`, null, PORT);
+  storeInstances.forEach((storeInstance) => {
+    storeInstance.instance.telegram.setWebhook(`${URL}/bot${storeInstance.token}`);
+    storeInstance.instance.startWebhook(`/bot${storeInstance.token}`, null, PORT);
+  });
 }
 
 // start reading rss articles

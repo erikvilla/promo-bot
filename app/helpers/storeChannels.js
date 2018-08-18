@@ -12,6 +12,7 @@ const storeInstances = storeConfig.map(storeObject => (
   {
     store: storeObject.store,
     instance: new Telegraf(storeObject.token),
+    token: storeObject.token,
   }
 ));
 
