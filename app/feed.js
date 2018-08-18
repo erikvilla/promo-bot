@@ -11,7 +11,7 @@ const halfArray = (array) => {
   let middle = array.length - (array.length / 2);
   middle = Math.floor(middle);
   return array.slice(middle, array.length - 1);
-}
+};
 
 const feedReader = {
   read: (onUpdate) => {
