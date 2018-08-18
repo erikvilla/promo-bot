@@ -7,6 +7,8 @@ exports.sendIntervalMessages = exports.isBlacklisted = exports.includes = export
 
 var _blacklist = require('../commands/blacklist');
 
+var _storeChannels = require('./storeChannels');
+
 var composeMessage = function composeMessage(article) {
   return article.title + ' | ' + article.link;
 };
@@ -25,6 +27,15 @@ var isBlacklisted = function isBlacklisted(article) {
   return false;
 };
 
+var getStoreChannel = function getStoreChannel(article) {
+  for (var i = 0; i < _storeChannels.storeArray.length; i += 1) {
+    if (includes(article.title, _storeChannels.storeArray[i])) {
+      return _storeChannels.storeArray[i];
+    }
+  }
+  return false;
+};
+
 var sendIntervalMessages = function sendIntervalMessages(telegramInstance, id, articles) {
   var interval = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : 1000;
 
@@ -35,6 +46,14 @@ var sendIntervalMessages = function sendIntervalMessages(telegramInstance, id, a
       var article = articles[count];
       if (!isBlacklisted(article)) {
         telegramInstance.sendMessage(id, composeMessage(articles[count]));
+      }
+      var store = getStoreChannel(article);
+      if (store) {
+        _storeChannels.storeInstances.forEach(function (storeInstance) {
+          if (storeInstance.store === store) {
+            storeInstance.instance.telegram.sendMessage(id, composeMessage(articles[count]));
+          }
+        });
       }
       count += 1;
     } else {

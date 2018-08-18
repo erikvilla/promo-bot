@@ -18,16 +18,18 @@ var _commands2 = _interopRequireDefault(_commands);
 
 var _messageHelper = require('./helpers/messageHelper');
 
+var _storeChannels = require('./helpers/storeChannels');
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 // TODO move this to a DB
 
-/* commands */
+/* helpers */
 var chatids = JSON.parse(process.env.CHAT_IDS) || JSON.parse(_config2.default.get('CHAT_IDS'));
 
 /** telegram app **/
 
-/* helpers */
+/* commands */
 var token = process.env.token || _config2.default.get('token');
 var URL = process.env.URL || _config2.default.get('URL');
 var PORT = process.env.PORT || _config2.default.get('PORT');
@@ -48,6 +50,8 @@ if (isDevelopment) {
   app.telegram.setWebhook();
 
   app.startPolling();
+  // start store bots
+  (0, _storeChannels.startPolling)();
 } else {
   app.telegram.setWebhook(URL + '/bot' + token);
   app.startWebhook('/bot' + token, null, PORT);
